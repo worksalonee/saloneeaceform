@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 56 178 172;
+    --color-secondary: 59 130 246;
+    --color-accent: 249 115 22;
+    --color-success: 34 197 94;
+    --color-warning: 234 179 8;
+    --color-error: 239 68 68;
+  }
+  
+  body {
+    @apply text-gray-800 antialiased;
+  }
+}
+
+@layer components {
+  .element-card {
+    @apply bg-white rounded-md p-3 text-center shadow-sm border border-gray-200 
+           cursor-move transition-all duration-200 hover:shadow-md hover:border-cyan-300;
+  }
+  
+  .layout-card {
+    @apply bg-white rounded-md p-3 text-center shadow-sm border border-gray-200 
+           cursor-move transition-all duration-200 hover:shadow-md hover:border-blue-300;
+  }
+  
+  .tab-button {
+    @apply w-1/2 py-3 text-gray-600 font-medium text-center transition-colors
+           hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50;
+  }
+  
+  .tab-button.active {
+    @apply bg-white text-cyan-700 font-semibold;
+  }
+  
+  .droppable-area {
+    @apply min-h-[100px] border-2 border-dashed border-gray-300 rounded-md
+           transition-colors duration-200 bg-white/60 relative;
+  }
+  
+  .droppable-area.active {
+    @apply border-cyan-400 bg-cyan-50;
+  }
+
+  .property-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .property-input {
+    @apply w-full p-2 border border-gray-300 rounded-md shadow-sm
+           focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500;
+  }
+}
