@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '../hooks/store';
 
-const FormPreview: React.FC = () => {
+const FormPreview = () => {
   const { sections, title } = useAppSelector(state => state.form);
   
-  const renderField = (element: any) => {
+  const renderField = (element) => {
     const { fieldType, config } = element;
     
     switch (fieldType) {
@@ -60,7 +60,7 @@ const FormPreview: React.FC = () => {
             className="w-full p-2 border border-gray-300 rounded-md"
           >
             <option value="">Select an option</option>
-            {config.options?.map((option: string, index: number) => (
+            {config.options?.map((option, index) => (
               <option key={index} value={option}>{option}</option>
             ))}
           </select>
@@ -68,7 +68,7 @@ const FormPreview: React.FC = () => {
       case 'radio':
         return (
           <div className="space-y-2">
-            {config.options?.map((option: string, index: number) => (
+            {config.options?.map((option, index) => (
               <div key={index} className="flex items-center">
                 <input 
                   type="radio" 
@@ -156,14 +156,14 @@ const FormPreview: React.FC = () => {
     <div className="h-full p-6 overflow-y-auto max-w-3xl mx-auto bg-white rounded-md shadow">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">{title}</h2>
       
-      {sections.map((section, sectionIndex) => (
+      {sections.map((section) => (
         <div key={section.id} className="mb-8">
           <div className="bg-cyan-600 text-white py-2 px-4 rounded-t-md font-medium">
             {section.title}
           </div>
           
           <div className="border border-gray-200 rounded-b-md p-4 bg-white">
-            {section.elements.map((element, elementIndex) => {
+            {section.elements.map((element) => {
               if (element.type === 'layout') {
                 return (
                   <div key={element.id} className="mb-4">

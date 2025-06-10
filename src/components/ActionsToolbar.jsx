@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/store';
 import { togglePreviewMode, toggleJSONViewer } from '../store/uiSlice';
 import { Eye, Code, X } from 'lucide-react';
 
-const ActionsToolbar: React.FC = () => {
+const ActionsToolbar = () => {
   const dispatch = useAppDispatch();
   const { isPreviewMode, isJSONViewerOpen } = useAppSelector(state => state.ui);
 
@@ -36,9 +36,7 @@ const ActionsToolbar: React.FC = () => {
       </div>
       
       <div>
-        {/* <button className="px-3 py-1.5 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition-colors">
-          Save Form
-        </button> */}
+        {/* Future: Save Form button */}
       </div>
     </div>
   );

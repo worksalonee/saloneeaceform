@@ -5,7 +5,7 @@ import { addSection, selectElement } from '../store/formSlice';
 import FormElement from './FormElement';
 import { Plus } from 'lucide-react';
 
-const Canvas: React.FC = () => {
+const Canvas = () => {
   const dispatch = useAppDispatch();
   const { sections, title } = useAppSelector(state => state.form);
   
@@ -38,13 +38,7 @@ const Canvas: React.FC = () => {
   );
 };
 
-interface SectionProps {
-  id: string;
-  title: string;
-  elements: any[];
-}
-
-const Section: React.FC<SectionProps> = ({ id, title, elements }) => {
+const Section = ({ id, title, elements }) => {
   const { setNodeRef, isOver } = useDroppable({
     id: `droppable-${id}`,
   });

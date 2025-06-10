@@ -6,13 +6,7 @@ import {
   MapPin, Phone, Upload, Video, Type, ListChecks 
 } from 'lucide-react';
 
-interface ElementCardProps {
-  id: string;
-  icon: React.ReactNode;
-  label: string;
-}
-
-const ElementCard: React.FC<ElementCardProps> = ({ id, icon, label }) => {
+const ElementCard = ({ id, icon, label }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `draggable-${id}`,
   });
@@ -37,7 +31,7 @@ const ElementCard: React.FC<ElementCardProps> = ({ id, icon, label }) => {
   );
 };
 
-const ElementsTab: React.FC = () => {
+const ElementsTab = () => {
   const elements = [
     { id: 'single-line', icon: <Type size={20} />, label: 'Single-line' },
     { id: 'multi-line', icon: <AlignJustify size={20} />, label: 'Multi-line' },

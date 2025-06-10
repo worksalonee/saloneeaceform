@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../hooks/store';
 
-const JSONViewer: React.FC = () => {
+const JSONViewer = () => {
   const form = useAppSelector(state => state.form);
   
   // Transform the form state into a cleaner JSON representation

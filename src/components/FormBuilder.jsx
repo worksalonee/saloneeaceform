@@ -1,7 +1,7 @@
 import React from 'react';
-import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
-import { addElement, moveElement, selectElement } from '../store/formSlice';
+import { addElement, selectElement } from '../store/formSlice';
 import { togglePropertiesPanel } from '../store/uiSlice';
 import Sidebar from './Sidebar';
 import Canvas from './Canvas';
@@ -10,12 +10,12 @@ import ActionsToolbar from './ActionsToolbar';
 import JSONViewer from './JSONViewer';
 import FormPreview from './FormPreview';
 
-const FormBuilder: React.FC = () => {
+const FormBuilder = () => {
   const dispatch = useAppDispatch();
   const { isPreviewMode, isJSONViewerOpen, propertiesPanelOpen } = useAppSelector(state => state.ui);
   const { selectedElementId } = useAppSelector(state => state.form);
 
-  const handleDragStart = (event: DragStartEvent) => {
+  const handleDragStart = (event) => {
     const { active } = event;
     if (active.id.toString().includes('draggable-')) {
       const elementType = active.id.toString().replace('draggable-', '');
@@ -23,7 +23,7 @@ const FormBuilder: React.FC = () => {
     }
   };
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = (event) => {
     const { active, over } = event;
     
     if (!over) return;
@@ -38,20 +38,14 @@ const FormBuilder: React.FC = () => {
       
       if (elementType.includes('layout-')) {
         // This is a layout element
-        const layoutType = elementType.replace('layout-', '') as any;
+        const layoutType = elementType.replace('layout-', '');
         dispatch(addElement({ sectionId, elementType: 'layout', layout: layoutType }));
       } else {
         // This is a form field element
-        dispatch(addElement({ sectionId, elementType: elementType as any }));
+        dispatch(addElement({ sectionId, elementType }));
       }
       
       dispatch(togglePropertiesPanel(true));
-    }
-    
-    // Handle reordering elements (simplified)
-    if (activeId.includes('element-') && overId.includes('droppable-')) {
-      // This would need to be implemented with more complex logic for reordering
-      // Including handling nested columns within layouts
     }
   };
 

@@ -4,7 +4,7 @@ import { setActiveTab } from '../store/uiSlice';
 import ElementsTab from './ElementsTab';
 import LayoutsTab from './LayoutsTab';
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { activeTab } = useAppSelector(state => state.ui);
 

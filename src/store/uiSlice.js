@@ -1,13 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-interface UiState {
-  activeTab: 'elements' | 'layouts';
-  isPreviewMode: boolean;
-  isJSONViewerOpen: boolean;
-  propertiesPanelOpen: boolean;
-}
-
-const initialState: UiState = {
+const initialState = {
   activeTab: 'elements',
   isPreviewMode: false,
   isJSONViewerOpen: false,
@@ -18,7 +11,7 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setActiveTab: (state, action: PayloadAction<'elements' | 'layouts'>) => {
+    setActiveTab: (state, action) => {
       state.activeTab = action.payload;
     },
     togglePreviewMode: (state) => {
@@ -33,7 +26,7 @@ export const uiSlice = createSlice({
         state.isPreviewMode = false;
       }
     },
-    togglePropertiesPanel: (state, action: PayloadAction<boolean | undefined>) => {
+    togglePropertiesPanel: (state, action) => {
       if (action.payload !== undefined) {
         state.propertiesPanelOpen = action.payload;
       } else {

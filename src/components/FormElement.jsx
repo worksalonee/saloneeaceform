@@ -2,25 +2,18 @@ import React from 'react';
 import { useAppDispatch } from '../hooks/store';
 import { removeElement, selectElement } from '../store/formSlice';
 import { togglePropertiesPanel } from '../store/uiSlice';
-import { FormElement as FormElementType } from '../types/form';
 import { Trash2 } from 'lucide-react';
 
-interface FormElementProps {
-  element: FormElementType;
-  sectionId: string;
-  isSelected: boolean;
-}
-
-const FormElement: React.FC<FormElementProps> = ({ element, sectionId, isSelected }) => {
+const FormElement = ({ element, sectionId, isSelected }) => {
   const dispatch = useAppDispatch();
 
-  const handleSelect = (e: React.MouseEvent) => {
+  const handleSelect = (e) => {
     e.stopPropagation();
     dispatch(selectElement(element.id));
     dispatch(togglePropertiesPanel(true));
   };
 
-  const handleRemove = (e: React.MouseEvent) => {
+  const handleRemove = (e) => {
     e.stopPropagation();
     dispatch(removeElement({ sectionId, elementId: element.id }));
     dispatch(togglePropertiesPanel(false));

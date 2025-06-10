@@ -1,22 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
-import { 
-  FormElement, 
-  FormElementType, 
-  FormLayout, 
-  FormSection,
-  FormElementConfig,
-  LayoutType 
-} from '../types/form';
 
-interface FormState {
-  title: string;
-  sections: FormSection[];
-  nextSectionId: number;
-  selectedElementId: string | null;
-}
-
-const initialState: FormState = {
+const initialState = {
   title: 'Form',
   sections: [
     {
@@ -33,7 +18,7 @@ export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setFormTitle: (state, action: PayloadAction<string>) => {
+    setFormTitle: (state, action) => {
       state.title = action.payload;
     },
     addSection: (state) => {
@@ -45,22 +30,18 @@ export const formSlice = createSlice({
       });
       state.nextSectionId += 1;
     },
-    updateSectionTitle: (state, action: PayloadAction<{ sectionId: string; title: string }>) => {
+    updateSectionTitle: (state, action) => {
       const { sectionId, title } = action.payload;
       const section = state.sections.find(s => s.id === sectionId);
       if (section) {
         section.title = title;
       }
     },
-    removeSection: (state, action: PayloadAction<string>) => {
+    removeSection: (state, action) => {
       const sectionId = action.payload;
       state.sections = state.sections.filter(s => s.id !== sectionId);
     },
-    addElement: (state, action: PayloadAction<{ 
-      sectionId: string; 
-      elementType: FormElementType;
-      layout?: LayoutType;
-    }>) => {
+    addElement: (state, action) => {
       const { sectionId, elementType, layout } = action.payload;
       const section = state.sections.find(s => s.id === sectionId);
       
@@ -68,7 +49,7 @@ export const formSlice = createSlice({
       
       const id = nanoid();
       
-      let newElement: FormElement;
+      let newElement;
       
       if (layout) {
         // This is a layout element
@@ -99,10 +80,10 @@ export const formSlice = createSlice({
           columns.push({ width: 75, elements: [] });
         }
         
-        (newElement as FormLayout).layout.columns = columns;
+        newElement.layout.columns = columns;
       } else {
         // This is a form field element
-        const config: FormElementConfig = {
+        const config = {
           label: elementType.charAt(0).toUpperCase() + elementType.slice(1),
           placeholder: `Enter ${elementType} here...`,
           required: false,
@@ -124,12 +105,7 @@ export const formSlice = createSlice({
       section.elements.push(newElement);
       state.selectedElementId = id;
     },
-    moveElement: (state, action: PayloadAction<{
-      sourceId: string;
-      destinationId: string;
-      sourceIndex: number;
-      destinationIndex: number;
-    }>) => {
+    moveElement: (state, action) => {
       const { sourceId, destinationId, sourceIndex, destinationIndex } = action.payload;
       
       // Find source section or column
@@ -146,13 +122,9 @@ export const formSlice = createSlice({
           // Insert at destination
           state.sections[destSectionIndex].elements.splice(destinationIndex, 0, movedElement);
         }
-      } else {
-        // Handle movement within layout columns (more complex)
-        // This would need to recursively search through all sections and their layout elements
-        // to find the right columns - simplified for this example
       }
     },
-    removeElement: (state, action: PayloadAction<{ sectionId: string; elementId: string }>) => {
+    removeElement: (state, action) => {
       const { sectionId, elementId } = action.payload;
       const section = state.sections.find(s => s.id === sectionId);
       
@@ -164,11 +136,7 @@ export const formSlice = createSlice({
         state.selectedElementId = null;
       }
     },
-    updateElementConfig: (state, action: PayloadAction<{
-      sectionId: string;
-      elementId: string;
-      config: Partial<FormElementConfig>;
-    }>) => {
+    updateElementConfig: (state, action) => {
       const { sectionId, elementId, config } = action.payload;
       const section = state.sections.find(s => s.id === sectionId);
       
@@ -180,7 +148,7 @@ export const formSlice = createSlice({
         }
       }
     },
-    selectElement: (state, action: PayloadAction<string | null>) => {
+    selectElement: (state, action) => {
       state.selectedElementId = action.payload;
     },
   },

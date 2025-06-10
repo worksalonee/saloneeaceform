@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
 import { updateElementConfig } from '../store/formSlice';
 import { togglePropertiesPanel } from '../store/uiSlice';
 import { X, Plus, Trash2 } from 'lucide-react';
 
-const PropertiesPanel: React.FC = () => {
+const PropertiesPanel = () => {
   const dispatch = useAppDispatch();
   const { sections, selectedElementId } = useAppSelector(state => state.form);
   
@@ -40,10 +40,10 @@ const PropertiesPanel: React.FC = () => {
   
   const { config } = selectedElement;
   
-  const handleConfigChange = (key: string, value: any) => {
+  const handleConfigChange = (key, value) => {
     dispatch(updateElementConfig({
       sectionId,
-      elementId: selectedElementId!,
+      elementId: selectedElementId,
       config: { [key]: value }
     }));
   };
@@ -53,13 +53,13 @@ const PropertiesPanel: React.FC = () => {
     handleConfigChange('options', newOptions);
   };
   
-  const handleRemoveOption = (index: number) => {
+  const handleRemoveOption = (index) => {
     const newOptions = [...(config.options || [])];
     newOptions.splice(index, 1);
     handleConfigChange('options', newOptions);
   };
   
-  const handleChangeOption = (index: number, value: string) => {
+  const handleChangeOption = (index, value) => {
     const newOptions = [...(config.options || [])];
     newOptions[index] = value;
     handleConfigChange('options', newOptions);
@@ -169,7 +169,7 @@ const PropertiesPanel: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              {config.options?.map((option: string, index: number) => (
+              {config.options?.map((option, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <input
                     type="text"

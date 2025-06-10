@@ -2,13 +2,7 @@ import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 
-interface LayoutCardProps {
-  id: string;
-  label: string;
-  columns: number[];
-}
-
-const LayoutCard: React.FC<LayoutCardProps> = ({ id, label, columns }) => {
+const LayoutCard = ({ id, label, columns }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `draggable-layout-${id}`,
   });
@@ -41,7 +35,7 @@ const LayoutCard: React.FC<LayoutCardProps> = ({ id, label, columns }) => {
   );
 };
 
-const LayoutsTab: React.FC = () => {
+const LayoutsTab = () => {
   const layouts = [
     { id: '50-50', label: '50% - 50%', columns: [50, 50] },
     { id: '25-25-25-25', label: '25% - 25% - 25% - 25%', columns: [25, 25, 25, 25] },
